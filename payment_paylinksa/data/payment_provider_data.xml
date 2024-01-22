@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <record id="payment_payment_provider_paylinksa" model="payment.provider">
+        <field name="name">Paylink</field>
+        <field name="code">paylinksa</field>
+        <field name="is_published">True</field>
+        <field name="redirect_form_view_id" ref="redirect_form"/>
+        <field name="allow_tokenization">True</field>
+        <field name="allow_express_checkout">True</field>
+        <field name="paylinksa_apiId">APP_ID_1123453311</field>
+        <field name="paylinksa_secretKey">0662abb5-13c7-38ab-cd12-236e58f43766</field>
+        <field name="persistToken">false</field>
+        <field name="website_id">1</field>
+        <field name="image_128" type="base64" file="payment_paylinksa/static/description/icon.png"/>
+        <field name="state">test</field>
+        <field name="payment_method_ids"
+               eval="[Command.set([
+                         ref('payment_paylinksa.payment_method_paylinksa'),
+                         ref('payment.payment_method_card'),
+                         ref('payment.payment_method_mada'),
+                         ref('payment.payment_method_cash_app_pay'),
+                         ref('payment.payment_method_mobile_money'),
+                         ref('payment.payment_method_bank_transfer'),
+                         ref('payment.payment_method_bank_account'),
+                         ref('payment.payment_method_credit'),
+                         ref('payment.payment_method_paypal'),
+                         ref('payment.payment_method_ussd'),
+                     ])]"
+        />
+
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+
+
+</odoo>
