@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="payment_provider_form" model="ir.ui.view">
+        <field name="name">Paylink Provider Form</field>
+        <field name="model">payment.provider</field>
+        <field name="inherit_id" ref="payment.payment_provider_form"/>
+        <field name="arch" type="xml">
+            <group name="provider_credentials" position='inside'>
+                <group invisible="code != 'paylinksa'">
+                    <group colspan="4">
+                        <div class="alert alert-warning mb-0" role="alert" colspan="2" style="padding:5px">
+                            <p>Please review the entered credentials and ensure they are correct for the selected
+                                environment:
+                            </p>
+                            <ul style="list-style-type:disc">
+                              <li>For Testing environment:
+                                <a href="https://paylinksa.readme.io/docs" target="_blank">Document link</a></li>
+                              <li>For Production environment:
+                                <a href="https://www.youtube.com/watch?v=EldaEjIfFa4"
+                                   target="_blank">Video link
+                                </a></li>
+
+                            </ul>
+                        </div>
+                    </group>
+                    <group>
+                        <field name="paylinksa_apiId"
+                               required="code == 'paylinksa' and state != 'disabled'"/>
+                        <field name="paylinksa_secretKey" password="True"
+                               required="code == 'paylinksa' and state != 'disabled'"/>
+                        <field name="persistToken" required="code == 'paylinksa' and state != 'disabled'"/>
+                    </group>
+                </group>
+            </group>
+            <xpath expr="//field[@name='maximum_amount']" position="before">
+                <field name="minimum_amount"/>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>
