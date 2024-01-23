@@ -1,37 +1,37 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* payment_paylinksa
-# 
+#
 # Translators:
 # Wil Odoo, 2023
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 21:56+0000\n"
-"PO-Revision-Date: 2023-10-26 23:09+0000\n"
+"PO-Revision-Date: 2024-01-23 12:06+0300\n"
 "Last-Translator: Wil Odoo, 2023\n"
 "Language-Team: Arabic (https://app.transifex.com/odoo/teams/41243/ar/)\n"
+"Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Language: ar\n"
-"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : "
+"n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #. module: payment_paylinksa
 #. odoo-python
 #: code:addons/payment_paylinksa/models/payment_transaction.py:0
 #, python-format
-msgid ""
-"An error occurred during the processing of your payment (status %s). Please "
-"try again."
-msgstr "حدث خطأ أثناء معالجة عملية الدفع (الحالة %s). يرجى المحاولة مجدداً. "
+msgid "An error occurred during the processing of your payment (status %s). Please try again."
+msgstr "حدث خطأ أثناء معالجة عملية الدفع (الحالة %s). يرجى المحاولة مجدداً."
 
 #. module: payment_paylinksa
 #: model:ir.model.fields,field_description:payment_paylinksa.field_payment_provider__code
 msgid "Code"
-msgstr "رمز "
+msgstr "رمز"
 
 #. module: payment_paylinksa
 #: model:ir.model.fields,field_description:payment_paylinksa.field_payment_provider__state
@@ -39,131 +39,136 @@ msgid "Status"
 msgstr "الحالة"
 
 #. module: payment_paylinksa
+#: model_terms:ir.ui.view,arch_db:payment_paylinksa.payment_provider_form
+msgid "Status"
+msgstr "الحالة"
+
+#. module: payment_paylinksa
+#: model_terms:ir.ui.view,arch_db:payment_paylinksa.payment_provider_form
+msgid "الولاية"
+msgstr "الحالة"
+
+#. module: payment_paylinksa
 #: model:ir.model.fields,field_description:payment_paylinksa.field_payment_provider__website_id
 msgid "Website"
-msgstr "الموقع الالكتروني"
+msgstr "الموقع الإلكتروني"
 
 #. module: payment_paylinksa
 #. odoo-python
 #: code:addons/payment_paylinksa/models/payment_provider.py:0
 #, python-format
 msgid "Could not establish the connection to the API."
-msgstr "تعذر إنشاء الاتصال بالواجهة البرمجية للتطبيق. "
+msgstr "تعذر إنشاء الاتصال بالـ API."
 
 #. module: payment_paylinksa
 #: model:ir.model.fields.selection,name:payment_flutterwave.selection__payment_provider__code__paylinksa
 msgid "Paylink"
-msgstr "بيـلينك"
+msgstr "بيلينك"
 
 #. module: payment_paylinksa
 #: model:ir.model.fields,field_description:payment_paylinksa.field_payment_token__paylink_customer_email
 msgid "Paylink Customer Email"
-msgstr "البريد الإلكتروني للعميل لـ Paylink "
+msgstr "البريد الإلكتروني لعميل Paylink"
 
 #. module: payment_paylinksa
 #: model:ir.model.fields,field_description:payment_paylinksa.field_payment_provider__paylinksa_apiId
 msgid "API ID"
-msgstr "المفتاح العام لـبيـلينك(API ID) "
+msgstr "API ID"
 
 #. module: payment_paylinksa
 #: model:ir.model.fields,field_description:payment_paylinksa.field_payment_provider__paylinksa_secretKey
 msgid "Paylink Secret Key"
-msgstr "المفتاح السري لـبيـلينك "
+msgstr "Paylink Secret Key"
 
 #. module: payment_paylinksa
 #: model:ir.model.fields,field_description:payment_paylinksa.field_payment_provider__persistToken
 msgid "Persist Token"
-msgstr "رمز الاستمرار"
+msgstr "Persist Token"
 
 #. module: payment_paylinksa
-#: model:ir.model.fields,field_description:payment_paylinksa.field_payment_provider__persistToken
+#: model:ir.model.fields,field_description:payment_paylinksa.field_payment_provider__minimum_amount
 msgid "Minimum Amount"
-msgstr "الحد الأدنى للمبلغ"
+msgstr "الحد الأدنى للعملية"
 
 #. module: payment_paylinksa
 #. odoo-python
 #: code:addons/payment_paylinksa/models/payment_transaction.py:0
 #, python-format
 msgid "No transaction found matching reference %s."
-msgstr "لم يتم العثور على معاملة تطابق المرجع %s. "
+msgstr "لم يتم العثور على معاملة تطابق المرجع %s."
 
 #. module: payment_paylinksa
 #: model:ir.model,name:payment_paylinksa.model_payment_provider
 msgid "Payment Provider"
-msgstr "مزود الدفع "
+msgstr "مزود بوابة الدفع"
 
 #. module: payment_paylinksa
 #: model:ir.model,name:payment_paylinksa.model_payment_token
 msgid "Payment Token"
-msgstr "رمز الدفع "
+msgstr "Payment Token"
 
 #. module: payment_paylinksa
 #: model:ir.model,name:payment_paylinksa.model_payment_transaction
 msgid "Payment Transaction"
-msgstr "معاملة الدفع "
+msgstr "عملية الدفع"
 
 #. module: payment_paylinksa
 #: model_terms:ir.ui.view,arch_db:payment_paylinksa.payment_provider_form
 msgid "Public Key"
-msgstr "مفتاح عام "
+msgstr "Public Key"
 
 #. module: payment_paylinksa
 #. odoo-python
 #: code:addons/payment_paylinksa/models/payment_transaction.py:0
 #, python-format
 msgid "Received data with missing reference."
-msgstr "تم استلام البيانات دون مرجع. "
+msgstr "تم استلام البيانات دون مرجع."
 
 #. module: payment_paylinksa
 #: model_terms:ir.ui.view,arch_db:payment_paylinksa.payment_provider_form
 msgid "Secret Key"
-msgstr "المفتاح السري "
+msgstr "Secret Key"
 
 #. module: payment_paylinksa
 #. odoo-python
 #: code:addons/payment_paylinksa/models/payment_provider.py:0
 #, python-format
-msgid ""
-"The communication with the API failed. Paylink gave us the following "
-"information: '%s'"
-msgstr ""
-"فشل التواصل مع الواجهة البرمجية للتطبيق. لقد منحنا Paylink المعلومات "
-"التالية: '%s' "
+msgid "The communication with the API failed. Paylink gave us the following information: '%s'"
+msgstr "فشل التواصل مع الـAPI. لقد منحنا Paylink المعلومات التالية: '%s'"
 
 #. module: payment_paylinksa
 #: model:ir.model.fields,help:payment_paylinksa.field_payment_token__paylink_customer_email
 msgid "The email of the customer at the time the token was created."
-msgstr "البريد الإلكتروني للعميل في وقت إنشاء الرمز "
+msgstr "البريد الإلكتروني للعميل في وقت إنشاء الـToken."
 
 #. module: payment_paylinksa
 #: model:ir.model.fields,help:payment_paylinksa.field_payment_provider__paylinksa_apiId
 msgid "API ID that Paylink gives. If you need the API ID, subscribe to a package that supports API."
-msgstr "المفتاح المستخدَم فقط لتعريف الحساب مع بيـلينك. "
+msgstr "المفتاح المستخدَم فقط لتعريف الحساب مع بيلينك."
 
 #. module: payment_paylinksa
 #: model:ir.model.fields,help:payment_paylinksa.field_payment_provider__code
 msgid "The technical code of this payment provider."
-msgstr "الكود التقني لمزود الدفع هذا. "
+msgstr "الكود التقني لمزود الدفع هذا."
 
 #. module: payment_paylinksa
 #. odoo-python
 #: code:addons/payment_paylinksa/models/payment_transaction.py:0
 #, python-format
 msgid "The transaction is not linked to a token."
-msgstr "المعاملة غير مرتبطة برمز. "
+msgstr "المعاملة غير مرتبطة بـToken."
 
 #. module: payment_paylinksa
 #. odoo-python
 #: code:addons/payment_paylinksa/models/payment_transaction.py:0
 #, python-format
 msgid "Unknown payment status: %s"
-msgstr "حالة الدفع غير معروفة: %s "
+msgstr "حالة الدفع غير معروفة: %s"
 
 #. module: payment_paylinksa
 #: model_terms:ir.ui.view,arch_db:payment_paylinksa.payment_provider_form
 msgid "Webhook Secret"
-msgstr "سر Webhook "
-
+msgstr "Webhook Secret"
 
 #. module: payment_paylinksa
 #: model_terms:ir.ui.view,arch_db:payment_paylinksa.payment_provider_form
@@ -183,9 +188,9 @@ msgstr "للبيئة الإنتاجية:"
 #. module: payment_paylinksa
 #: model_terms:ir.ui.view,arch_db:payment_paylinksa.payment_provider_form
 msgid "Document link"
-msgstr "رابط الوثائق"
+msgstr "مستند خطوات الربط"
 
 #. module: payment_paylinksa
 #: model_terms:ir.ui.view,arch_db:payment_paylinksa.payment_provider_form
 msgid "Video link"
-msgstr "رابط الفيديو"
+msgstr "فيديو توضيحي"
