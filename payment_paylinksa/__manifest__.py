@@ -17,4 +17,5 @@
     'uninstall_hook': 'uninstall_hook',
 
     'license': 'LGPL-3',
+    'images': ['static/description/banner.png'],
 }
