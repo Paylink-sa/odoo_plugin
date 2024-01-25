@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Payment Provider: paylink.sa",
-    'summary': "Paylink provides you with a competitive payment gateway and solutions that are suitable for you!",
+    'name': "Payment Solution by Paylink",
+    'summary': "Experience seamless payment solutions with Paylink, the premium payment gateway company in Saudi Arabia",
     'author': "paylink",
     'website': "https://paylink.sa",
     'category': 'Accounting/Payment Providers',
