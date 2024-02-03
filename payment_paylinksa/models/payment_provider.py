@@ -33,15 +33,15 @@ class PaymentProvider(models.Model):
     paylinksa_apiId = fields.Char(
         string="API ID",
         help="API ID that Paylink gives. If you need the API ID, subscribe to a package that supports API.",
-        required_if_provider='paylinksa',)
+        )
     website_id = fields.Many2one(
         "website",
         check_company=True,
         ondelete="restrict",
-        required_if_provider='paylinksa'
+
     )
-    paylinksa_secretKey = fields.Char(string="Secret Key", required_if_provider='paylinksa', groups='base.group_system')
-    persistToken = fields.Boolean(string="Persist Token",help="If set to true, then the returned token is valid for 30 hours. Otherwise, the returned token will be good for 30 minutes.", groups='base.group_system')
+    paylinksa_secretKey = fields.Char(string="Secret Key", groups='base.group_system')
+    persistToken = fields.Boolean(string="Persist Token", help="If set to true, then the returned token is valid for 30 hours. Otherwise, the returned token will be good for 30 minutes.", groups='base.group_system')
 
 
     # === COMPUTE METHODS ===#

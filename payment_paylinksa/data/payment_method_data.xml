@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo noupdate="1">
 
-    <record id="payment_method_apple_pay" model="payment.method">
-        <field name="name">Apple Pay</field>
-        <field name="code">apple_pay</field>
-        <field name="primary_payment_method_id" eval="ref('payment.payment_method_card')"/>
-        <field name="sequence">1000</field>
-        <field name="active">False</field>
-        <field name="image" type="base64" file="payment_paylinksa/static/img/apple_pay.png"/>
-    </record>
-    <record id="payment_method_paylinksa" model="payment.method">
-        <field name="name">Pay by Card</field>
-        <field name="code">paylinksa</field>
-        <field name="sequence">1</field>
-        <field name="image" type="base64" file="payment_paylinksa/static/description/icon.png"/>
-        <field name="support_tokenization">True</field>
-        <field name="support_express_checkout">False</field>
-        <field name="support_refund">partial</field>
-        <field name="brand_ids"
-               eval="[Command.set([
-                         ref('payment.payment_method_mada'),
-                         ref('payment.payment_method_visa'),
-                         ref('payment_paylinksa.payment_method_apple_pay'),
-                         ref('payment.payment_method_amex'),
-                     ])]"
-        />
-    </record>
+<!--    <record id="payment_method_apple_pay" model="payment.method">-->
+<!--        <field name="name">Apple Pay</field>-->
+<!--        <field name="code">apple_pay</field>-->
+<!--        <field name="primary_payment_method_id" eval="ref('payment.payment_method_card')"/>-->
+<!--        <field name="sequence">1000</field>-->
+<!--        <field name="active">False</field>-->
+<!--        <field name="image" type="base64" file="payment_paylinksa/static/img/apple_pay.png"/>-->
+<!--    </record>-->
+<!--    <record id="payment_method_paylinksa" model="payment.method">-->
+<!--        <field name="name">Pay by Card</field>-->
+<!--        <field name="code">paylinksa</field>-->
+<!--        <field name="sequence">1</field>-->
+<!--        <field name="image" type="base64" file="payment_paylinksa/static/description/icon.png"/>-->
+<!--        <field name="support_tokenization">True</field>-->
+<!--        <field name="support_express_checkout">False</field>-->
+<!--        <field name="support_refund">partial</field>-->
+<!--        <field name="brand_ids"-->
+<!--               eval="[Command.set([-->
+<!--                         ref('payment.payment_method_mada'),-->
+<!--                         ref('payment.payment_method_visa'),-->
+<!--                         ref('payment_paylinksa.payment_method_apple_pay'),-->
+<!--                         ref('payment.payment_method_amex'),-->
+<!--                     ])]"-->
+<!--        />-->
+<!--    </record>-->
 
 </odoo>

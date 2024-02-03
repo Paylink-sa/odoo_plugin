@@ -14,20 +14,14 @@
         <field name="website_id">1</field>
         <field name="image_128" type="base64" file="payment_paylinksa/static/description/icon.png"/>
         <field name="state">test</field>
-        <field name="payment_method_ids"
-               eval="[Command.set([
-                         ref('payment_paylinksa.payment_method_paylinksa'),
-                         ref('payment.payment_method_card'),
-                         ref('payment.payment_method_mada'),
-                         ref('payment.payment_method_cash_app_pay'),
-                         ref('payment.payment_method_mobile_money'),
-                         ref('payment.payment_method_bank_transfer'),
-                         ref('payment.payment_method_bank_account'),
-                         ref('payment.payment_method_credit'),
-                         ref('payment.payment_method_paypal'),
-                         ref('payment.payment_method_ussd'),
-                     ])]"
-        />
+        <field name="payment_icon_ids"
+               eval="[(6, 0, [
+                        ref('payment.payment_icon_cc_mastercard'),
+                        ref('payment.payment_icon_cc_visa'),
+                        ref('payment.payment_icon_sadad'),
+                        ref('payment.payment_icon_mada'),
+                        ref('payment.payment_icon_cc_american_express'),
+                    ])]"/>
 
         <field name="company_id" ref="base.main_company"/>
     </record>
