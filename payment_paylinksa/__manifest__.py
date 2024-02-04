@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Payment Solution by Paylink",
+    'name': "Payment Solution by Paylink1",
     'summary': "Experience seamless payment solutions with Paylink, the premium payment gateway company in Saudi Arabia",
     'author': "paylink",
     'website': "https://paylink.sa",
