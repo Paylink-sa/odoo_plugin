@@ -6,8 +6,45 @@
         <field name="code">apple_pay</field>
         <field name="primary_payment_method_id" eval="ref('payment.payment_method_card')"/>
         <field name="sequence">1000</field>
-        <field name="active">False</field>
+        <field name="active">True</field>
         <field name="image" type="base64" file="payment_paylinksa/static/img/apple_pay.png"/>
+    </record>
+    <record id="paylinksa_payment_method_mada" model="payment.method">
+        <field name="name">Mada</field>
+        <field name="code">mada</field>
+        <field name="sequence">1000</field>
+        <field name="active">True</field>
+        <field name="image" type="base64" file="payment_paylinksa/static/img/mada.png"/>
+        <field name="support_tokenization">False</field>
+        <field name="support_express_checkout">False</field>
+        <field name="support_refund"></field>
+        <field name="supported_country_ids"
+               eval="[Command.set([
+                         ref('base.sa'),
+                         ref('base.ae'),
+                     ])]"
+        />
+        <field name="supported_currency_ids"
+               eval="[Command.set([
+                         ref('base.SAR'),
+                     ])]"
+        />
+    </record>
+    <record id="paylinksa_payment_method_visa" model="payment.method">
+        <field name="name">VISA</field>
+        <field name="code">visa</field>
+        <field name="primary_payment_method_id" eval="ref('payment.payment_method_card')"/>
+        <field name="sequence">1000</field>
+        <field name="active">True</field>
+        <field name="image" type="base64" file="payment_paylinksa/static/img/visa.png"/>
+    </record>
+    <record id="paylinksa_payment_method_amex" model="payment.method">
+        <field name="name">American Express</field>
+        <field name="code">amex</field>
+        <field name="primary_payment_method_id" eval="ref('payment.payment_method_card')"/>
+        <field name="sequence">1000</field>
+        <field name="active">True</field>
+        <field name="image" type="base64" file="payment_paylinksa/static/img/amex.png"/>
     </record>
     <record id="payment_method_paylinksa" model="payment.method">
         <field name="name">Pay by Card</field>
@@ -17,12 +54,13 @@
         <field name="support_tokenization">True</field>
         <field name="support_express_checkout">False</field>
         <field name="support_refund">partial</field>
+        <field name="active">True</field>
         <field name="brand_ids"
                eval="[Command.set([
-                         ref('payment.payment_method_mada'),
-                         ref('payment.payment_method_visa'),
+                         ref('payment_paylinksa.paylinksa_payment_method_mada'),
+                         ref('payment_paylinksa.paylinksa_payment_method_visa'),
                          ref('payment_paylinksa.payment_method_apple_pay'),
-                         ref('payment.payment_method_amex'),
+                         ref('payment_paylinksa.paylinksa_payment_method_amex'),
                      ])]"
         />
     </record>
