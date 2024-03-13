@@ -3,7 +3,7 @@
     'name': "Payment Solution by Paylink",
     'summary': "Experience seamless payment solutions with Paylink, the premium payment gateway company in Saudi Arabia",
     'author': "paylink",
-    'website': "https://paylink.sa",
+    'website': "https://paylink.sa/?source=paylink-odoo-module",
     'category': 'Accounting/Payment Providers',
     'version': '1.0',
     'depends': ['payment'],
