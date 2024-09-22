@@ -1,19 +1,22 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-API_VERSION = "2024-01-01"  # The API version of Stripe implemented in this module
+API_VERSION = "2024-09-22"  # The API version of Paylink implemented in this module
 
+PRODUCTION_API_URL = "https://restapi.paylink.sa"
+TEST_API_URL = "https://restpilot.paylink.sa"
+DEFAULT_TEST_API_ID = "APP_ID_1123453311"
+DEFAULT_TEST_SECRET_KEY = "0662abb5-13c7-38ab-cd12-236e58f43766"
 
 # The codes of the payment methods to activate when Stripe is activated.
 DEFAULT_PAYMENT_METHODS_CODES = [
-    # Brand payment methods.
-    "card",
     "mada",
-    "visa",
-    "mastercard",
+    "visaMastercard",
     "amex",
-    "mada",
+    "tabby",
+    "tamara",
+    "stcpay",
+    "urpay",
 ]
-
 
 STATUS_MAPPING = {
     "draft": ("requires_confirmation", "requires_action"),
@@ -21,10 +24,7 @@ STATUS_MAPPING = {
     "authorized": ("requires_capture",),
     "done": ("succeeded",),
     "cancel": ("canceled",),
-    "error": (
-        "requires_payment_method",
-        "failed",
-    ),
+    "error": ("requires_payment_method", "failed"),
 }
 
 # Events which are handled by the webhook

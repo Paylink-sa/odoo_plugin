@@ -15,14 +15,20 @@ _logger = logging.getLogger(__name__)
 class PaymentProvider(models.Model):
     _inherit = "payment.provider"
 
-    name = fields.Char(string="Name", required=True, translate=True, readonly=True)
+    name = fields.Char(
+        string="Name",
+        required=True,
+        translate=True,
+        readonly=True,
+    )
+
     state = fields.Selection(
         string="Status",
         help="In test mode, a fake payment is processed through a test payment interface.\n"
         "This mode is advised when setting up the provider.",
         selection=[
             ("test", "Test Environment"),
-            ("enabled", "Production Environment"),
+            ("production", "Production Environment (Live)"),
             ("disabled", "Disabled"),
         ],
         default="disabled",
@@ -33,33 +39,38 @@ class PaymentProvider(models.Model):
     code = fields.Selection(
         selection_add=[("paylinksa", "Paylink")], ondelete={"paylinksa": "set default"}
     )
+
     minimum_amount = fields.Monetary(
-        string="Minimum Amount",
+        string="Minimum Amount (SAR)",
         help="The minimum payment amount that this payment provider is available. ",
         currency_field="main_currency_id",
         default=5,
         readonly=True,
     )
+
     paylinksa_apiId = fields.Char(
-        string="API ID",
+        string="Live API ID",
         help="API ID that Paylink gives. If you need the API ID, subscribe to a package that supports API.",
         required_if_provider="paylinksa",
     )
+
+    paylinksa_secretKey = fields.Char(
+        string="Live Secret Key",
+        required_if_provider="paylinksa",
+        groups="base.group_system",
+    )
+
+    persistToken = fields.Boolean(
+        string="Persist Token",
+        help="If set to true, then the returned token is valid for 30 hours. Otherwise, the returned token will be good for 30 minutes.",
+        groups="base.group_system",
+    )
+
     website_id = fields.Many2one(
         "website",
         check_company=True,
         ondelete="restrict",
         required_if_provider="paylinksa",
-    )
-    paylinksa_secretKey = fields.Char(
-        string="Secret Key",
-        required_if_provider="paylinksa",
-        groups="base.group_system",
-    )
-    persistToken = fields.Boolean(
-        string="Persist Token",
-        help="If set to true, then the returned token is valid for 30 hours. Otherwise, the returned token will be good for 30 minutes.",
-        groups="base.group_system",
     )
 
     # === COMPUTE METHODS ===#
@@ -68,9 +79,7 @@ class PaymentProvider(models.Model):
         """Override of `payment` to enable additional features."""
         super()._compute_feature_support_fields()
         self.filtered(lambda p: p.code == "paylinksa").update(
-            {
-                "support_tokenization": True,
-            }
+            {"support_tokenization": True}
         )
 
     # === BUSINESS METHODS ===#
@@ -98,12 +107,18 @@ class PaymentProvider(models.Model):
 
     def _paylink_make_auth(self):
 
-        if self.state == "enabled":
-            url = "https://restapi.paylink.sa/api/auth"
+        if self.state == "production":
+            url = const.PRODUCTION_API_URL + "/api/auth"
+        elif self.state == "test":
+            url = const.TEST_API_URL + "/api/auth"
         else:
-            url = "https://restpilot.paylink.sa/api/auth"
-        headers = {"Content-Type": "application/json"}
-        # headers = {'Authorization': f'Bearer {self.paylinksa_secretKey}'}
+            raise ValidationError("This Payment Provider is disabled.")
+
+        headers = {
+            "accept": "application/json",
+            "Content-Type": "application/json",
+        }
+
         if self.persistToken:
             persist = "true"
         else:
@@ -111,8 +126,16 @@ class PaymentProvider(models.Model):
 
         payload = json.dumps(
             {
-                "apiId": self.paylinksa_apiId,
-                "secretKey": self.paylinksa_secretKey,
+                "apiId": (
+                    self.paylinksa_apiId
+                    if self.state == "production"
+                    else const.DEFAULT_TEST_API_ID
+                ),
+                "secretKey": (
+                    self.paylinksa_secretKey
+                    if self.state == "production"
+                    else const.DEFAULT_TEST_SECRET_KEY
+                ),
                 "persistToken": persist,
             }
         )
@@ -134,37 +157,49 @@ class PaymentProvider(models.Model):
         """
         self.ensure_one()
 
-        if self.state == "enabled":
-            url = url_join("https://restapi.paylink.sa/api/", endpoint)
+        if self.state == "production":
+            url = const.PRODUCTION_API_URL + "/api/" + endpoint
         else:
-            url = url_join("https://restpilot.paylink.sa/api/", endpoint)
+            url = const.TEST_API_URL + "/api/" + endpoint
 
-        headers = {"Authorization": f"Bearer {auth}"}
+        headers = {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {auth}",
+        }
+
         try:
             if method == "GET":
                 response = requests.get(
-                    url, params=payload, headers=headers, timeout=10
+                    url,
+                    params=payload,
+                    headers=headers,
+                    timeout=10,
                 )
             else:
-                response = requests.post(url, json=payload, headers=headers, timeout=10)
-            try:
-                response.raise_for_status()
-            except requests.exceptions.HTTPError:
-                _logger.exception(
-                    "Invalid API request at %s with data:\n%s",
+                response = requests.post(
                     url,
-                    pprint.pformat(payload),
+                    json=payload,
+                    headers=headers,
+                    timeout=10,
                 )
-                _logger.exception(response.text)
-                # detail
-                detail = json.loads(response.text)
-                raise ValidationError(_(detail["detail"]))
+
+            response.raise_for_status()
+
+            return response.json()
+        except requests.exceptions.HTTPError:
+            _logger.exception(
+                "Invalid API request at %s with data:\n%s", url, pprint.pformat(payload)
+            )
+            _logger.exception(response.text)
+            # detail
+            detail = json.loads(response.text)
+            raise ValidationError(_(detail["detail"]))
         except (requests.exceptions.ConnectionError, requests.exceptions.Timeout):
             _logger.exception("Unable to reach endpoint at %s", url)
             raise ValidationError(
                 "Paylink: " + _("Could not establish the connection to the API.")
             )
-        return response.json()
 
     def _product_description(self, order_ref):
         sale_order = self.env["sale.order"].search([("name", "=", order_ref)])
@@ -183,7 +218,8 @@ class PaymentProvider(models.Model):
     def _get_default_payment_method_codes(self):
         """Override of `payment` to return the default payment method codes."""
         default_codes = super()._get_default_payment_method_codes()
-        if self.code != "paylinksa":
-            return default_codes
-
-        return const.DEFAULT_PAYMENT_METHODS_CODES
+        return (
+            default_codes
+            if self.code != "paylinksa"
+            else const.DEFAULT_PAYMENT_METHODS_CODES
+        )

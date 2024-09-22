@@ -31,9 +31,8 @@ class PaymentTransaction(models.Model):
         :return: The dict of provider-specific processing values.
         :rtype: dict
         """
-        res = super()._get_specific_rendering_values(processing_values)
         if self.provider_code != "paylinksa":
-            return res
+            return super()._get_specific_rendering_values(processing_values)
 
         # Initiate the payment and retrieve the payment link data.
         # base_url = self.provider_id.get_base_url()
@@ -63,6 +62,7 @@ class PaymentTransaction(models.Model):
         rendering_values = {
             "api_url": payment_link_data["url"],
         }
+
         self.write(
             {
                 "paylink_id_token": id_token,
