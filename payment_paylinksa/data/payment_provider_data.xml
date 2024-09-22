@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo noupdate="1">
-
     <record id="payment_payment_provider_paylinksa" model="payment.provider">
         <field name="name">Paylink</field>
         <field name="code">paylinksa</field>
@@ -28,9 +27,6 @@
                          ref('payment.payment_method_ussd'),
                      ])]"
         />
-
         <field name="company_id" ref="base.main_company"/>
     </record>
-
-
 </odoo>

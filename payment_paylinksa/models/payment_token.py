@@ -4,8 +4,9 @@ from odoo import fields, models
 
 
 class PaymentToken(models.Model):
-    _inherit = 'payment.token'
+    _inherit = "payment.token"
 
     paylink_customer_email = fields.Char(
-        help="The email of the customer at the time the token was created.", readonly=True
+        help="The email of the customer at the time the token was created.",
+        readonly=True,
     )
