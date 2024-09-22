@@ -15,9 +15,9 @@
                         </div>
                     </group>
                     <group>
-                        <field name="paylinksa_apiId" required="code == 'paylinksa' and state != 'disabled'" />
-                        <field name="paylinksa_secretKey" password="True" required="code == 'paylinksa' and state != 'disabled'" />
-                        <field name="persistToken" required="code == 'paylinksa' and state != 'disabled'" />
+                        <field name="paylinksa_apiId" required="code == 'paylinksa' and state == 'production'" />
+                        <field name="paylinksa_secretKey" password="True" required="code == 'paylinksa' and state == 'production'" />
+                        <field name="persistToken" />
                     </group>
                     <div class="oe_button_box" name="button_box">
                         <button name="action_toggle_is_published" invisible="not is_published" class="oe_stat_button" type="object" icon="fa-globe">

@@ -7,8 +7,8 @@
         <field name="redirect_form_view_id" ref="redirect_form" />
         <field name="allow_tokenization">True</field>
         <field name="allow_express_checkout">True</field>
-        <field name="paylinksa_apiId">APP_ID_1123453311</field>
-        <field name="paylinksa_secretKey">0662abb5-13c7-38ab-cd12-236e58f43766</field>
+        <field name="paylinksa_apiId"></field>
+        <field name="paylinksa_secretKey"></field>
         <field name="persistToken">false</field>
         <field name="website_id">1</field>
         <field name="image_128" type="base64" file="payment_paylinksa/static/description/icon.png" />

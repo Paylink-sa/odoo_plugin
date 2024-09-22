@@ -5,7 +5,7 @@
     "author": "paylink",
     "website": "https://paylink.sa/?source=paylink-odoo-module",
     "category": "Accounting/Payment Providers",
-    "version": "1.0",
+    "version": "2.0",
     "depends": ["payment"],
     "data": [
         "views/payment_paylink_templates.xml",
