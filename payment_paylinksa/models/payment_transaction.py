@@ -31,18 +31,22 @@ class PaymentTransaction(models.Model):
         :return: The dict of provider-specific processing values.
         :rtype: dict
         """
+
+        # Check if the provider is 'paylinksa'; if not, call the parent method.
         if self.provider_code != "paylinksa":
             return super()._get_specific_rendering_values(processing_values)
 
-        # Initiate the payment and retrieve the payment link data.
-        # base_url = self.provider_id.get_base_url()
-
+        # Extract the authentication token for the Paylink provider.
         auth = self.provider_id._paylink_make_auth()
         id_token = auth.get("id_token")
-        _logger.info(id_token)
 
+        # Get the base URL for the Paylink API.
         base_url = self.provider_id.get_base_url()
-        get_product = self.provider_id._product_description(self.reference)
+
+        # Retrieve the order products based on the current transaction reference.
+        products_description = self.provider_id._product_description(self.reference)
+
+        # Construct the payload with all necessary information for the invoice.
         payload = {
             "amount": self.amount,
             "callBackUrl": urls.url_join(base_url, PaylinkController._return_url),
@@ -51,24 +55,28 @@ class PaymentTransaction(models.Model):
             "clientName": self.partner_name,
             "note": self.company_id.name,
             "orderNumber": self.reference,
-            "products": get_product,
+            "products": products_description,
             "currency": self.currency_id.name,
         }
-        payment_link_data = self.provider_id._paylink_make_request(
+
+        # Make a request to add the invoice and retrieve the response details.
+        invoice_details = self.provider_id._paylink_make_request(
             "addInvoice", auth=id_token, payload=payload
         )
 
-        # Extract the payment link URL and embed it in the redirect form.
-        rendering_values = {
-            "api_url": payment_link_data["url"],
-        }
-
+        # Store the ID token and transaction number for future reference.
         self.write(
             {
                 "paylink_id_token": id_token,
-                "paylink_transaction_no": payment_link_data["transactionNo"],
+                "paylink_transaction_no": invoice_details["transactionNo"],
             }
         )
+
+        # Extract the payment link URL from the response for the rendering values.
+        rendering_values = {
+            "api_url": invoice_details["url"],
+        }
+
         return rendering_values
 
     def _get_tx_from_notification_data(self, provider_code, notification_data):
